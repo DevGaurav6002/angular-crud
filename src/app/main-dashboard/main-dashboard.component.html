@@ -1,0 +1,123 @@
+<div class="dashboard-main-container">
+    <div class="dashboard-container">
+        <div class="header-container">
+            <div class="title-container">
+                <div class="title">
+                    <h1>Angular CRUD</h1>
+                </div>
+                <div class="create-button-container">
+                    <button (click)="showHideModel()">Create User</button>
+                </div>
+            </div>
+        </div>
+        <div class="body-container">
+            <div class="users-list-container">
+                <div class="users-container">
+                    <div class="user-container" *ngFor="let user of allUsers">
+                        <div class="user-name-container">
+                            <h3>{{user.f_name}} {{user.l_name}}</h3>
+                        </div>
+                        <div class="user-contact-container">
+                            <div class="email">
+                                <p>Email: {{user.email}}</p>
+                            </div>
+                            <div class="mobile">
+                                <p>Mobile: {{user.mobile}}</p>
+                            </div>
+                        </div>
+                        <div class="user-buttons-container">
+                            <a class="user-button user-edit-button" (click)="editModel(user.id)">Edit</a>
+                            <button class="user-button user-delete-button" (click)="deleteUser(user.id)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- create user model -->
+        <div class="create-user-model-container" *ngIf="createModelToBeShowned">
+            <div class="create-user-form-container">
+                <div class="create-user-from">
+                    <form [formGroup]="createUserForm">
+                        <div class="form-fields-container">
+                            <div class="card-title">
+                                <h2>Create User</h2>
+                                <span class="close" (click)="showHideModel()">&times;</span>
+                            </div>
+                            <div class="f-name input">
+                                <input type="text" name="f-name" id="f-name" placeholder="First Name" formControlName="f_name">
+                                <div class="error-label-container">
+                                    <span class="error lable" *ngIf="f_name?.invalid && f_name?.touched">Field is required</span>
+                                </div>
+                            </div>
+                            <div class="l-name input">
+                                <input type="text" name="l-name" id="l-name" placeholder="Last Name" formControlName="l_name">
+                                <div class="error-label-container">
+                                    <span class="error lable" *ngIf="l_name?.invalid && l_name?.touched">Field is required</span>
+                                </div>
+                            </div>
+                            <div class="email input">
+                                <input type="email" name="email" id="email" placeholder="Email ID" formControlName="email">
+                                <div class="error-label-container">
+                                    <span class="error lable" *ngIf="email?.invalid && email?.touched">Invalid Email</span>
+                                </div>
+                            </div>
+                            <div class="mobile input">
+                                <input type="tel" name="mobile" id="mobile" placeholder="Mobile No." formControlName="mobile">
+                                <div class="error-label-container">
+                                    <span class="error lable" *ngIf="mobile?.invalid && mobile?.touched">Invalid or more than 10 numbers</span>
+                                </div>
+                            </div>
+                            <div class="password input">
+                                <input type="password" name="password" id="password" placeholder="Password" formControlName="password">
+                                <div class="error-label-container">
+                                    <span class="error lable" *ngIf="password?.invalid && password?.touched">should not be empty or short</span>
+                                </div>
+                            </div>
+                            <div class="submit">
+                                <input type="submit" name="submit" id="submit" (click)="createUser()" [disabled]="createUserForm.invalid">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- create user model -->
+        <div class="create-user-model-container" *ngIf="editModelToBeShowned">
+            <div class="create-user-form-container">
+                <div class="create-user-from">
+                    <form [formGroup]="editUserForm">
+                        <div class="form-fields-container">
+                            <div class="card-title">
+                                <h2>Edit User</h2>
+                                <span class="close" (click)="toggleEditModel()">&times;</span>
+                            </div>
+                            <div class="f-name input">
+                                <input type="text" name="f-name" id="f-name" placeholder="First Name" formControlName="f_name">
+                            </div>
+                            <div class="l-name input">
+                                <input type="text" name="l-name" id="l-name" placeholder="Last Name" formControlName="l_name">
+                            </div>
+                            <div class="email input">
+                                <input type="email" name="email" id="email" placeholder="Email ID" formControlName="email">
+                            </div>
+                            <div class="mobile input">
+                                <input type="text" name="mobile" id="mobile" placeholder="Mobile No." formControlName="mobile">
+                            </div>
+                            <div class="password input">
+                                <input type="password" name="password" id="password" placeholder="Password" formControlName="password">
+                            </div>
+                            <div class="id input">
+                                <input type="hidden" name="id" id="id" formControlName="id">
+                            </div>
+                            <div class="submit">
+                                <input type="submit" name="submit" id="submit" value = "Save Changes" (click)="editUser()">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
+
+<router-outlet></router-outlet>
